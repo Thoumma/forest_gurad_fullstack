@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Dark forest theme */
+    --background: 160 30% 6%;
+    --foreground: 140 20% 92%;
+
+    --card: 160 25% 10%;
+    --card-foreground: 140 20% 92%;
+
+    --popover: 160 25% 8%;
+    --popover-foreground: 140 20% 92%;
+
+    /* Forest green primary */
+    --primary: 142 76% 45%;
+    --primary-foreground: 160 30% 6%;
+
+    /* Muted forest */
+    --secondary: 160 20% 15%;
+    --secondary-foreground: 140 20% 85%;
+
+    --muted: 160 15% 18%;
+    --muted-foreground: 140 10% 55%;
+
+    --accent: 142 60% 35%;
+    --accent-foreground: 140 20% 92%;
+
+    /* Alert colors */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 38 100% 10%;
+
+    --success: 142 76% 45%;
+    --success-foreground: 160 30% 6%;
+
+    --border: 160 20% 18%;
+    --input: 160 20% 18%;
+    --ring: 142 76% 45%;
+
+    --radius: 0.75rem;
+
+    /* Custom semantic colors */
+    --fire-risk-low: 142 76% 45%;
+    --fire-risk-moderate: 45 93% 47%;
+    --fire-risk-high: 25 95% 53%;
+    --fire-risk-critical: 0 72% 51%;
+
+    --glow-primary: 0 0 30px hsl(142 76% 45% / 0.3);
+    --glow-warning: 0 0 30px hsl(38 92% 50% / 0.4);
+    --glow-danger: 0 0 30px hsl(0 72% 51% / 0.4);
+
+    /* Sidebar */
+    --sidebar-background: 160 30% 5%;
+    --sidebar-foreground: 140 20% 85%;
+    --sidebar-primary: 142 76% 45%;
+    --sidebar-primary-foreground: 160 30% 6%;
+    --sidebar-accent: 160 20% 12%;
+    --sidebar-accent-foreground: 140 20% 92%;
+    --sidebar-border: 160 20% 15%;
+    --sidebar-ring: 142 76% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  .card-glow {
+    box-shadow: 0 0 40px hsl(var(--primary) / 0.08),
+                inset 0 1px 0 hsl(var(--foreground) / 0.05);
+  }
+
+  .card-glow-warning {
+    box-shadow: 0 0 40px hsl(var(--warning) / 0.15),
+                inset 0 1px 0 hsl(var(--foreground) / 0.05);
+  }
+
+  .card-glow-danger {
+    box-shadow: 0 0 40px hsl(var(--destructive) / 0.2),
+                inset 0 1px 0 hsl(var(--foreground) / 0.05);
+  }
+
+  .gauge-track {
+    stroke: hsl(var(--muted));
+    stroke-linecap: round;
+  }
+
+  .gauge-fill {
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .data-pulse {
+    animation: dataPulse 2s ease-in-out infinite;
+  }
+
+  .status-online {
+    animation: statusPulse 2s ease-in-out infinite;
+  }
+
+  .alert-flash {
+    animation: alertFlash 1s ease-in-out infinite;
+  }
+}
+
+@layer utilities {
+  .text-gradient-primary {
+    @apply bg-gradient-to-r from-emerald-400 to-green-500 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-warning {
+    @apply bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-danger {
+    @apply bg-gradient-to-r from-red-400 to-rose-500 bg-clip-text text-transparent;
+  }
+
+  .bg-grid-pattern {
+    background-image: 
+      linear-gradient(hsl(var(--border) / 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.3) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  }
+}
+
+@keyframes dataPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes statusPulse {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 hsl(var(--success) / 0.5);
+  }
+  50% { 
+    box-shadow: 0 0 0 8px hsl(var(--success) / 0);
+  }
+}
+
+@keyframes alertFlash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}
